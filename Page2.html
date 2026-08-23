@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Piece Us Together — Puzzle</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <h1>Piece Us Together</h1>
+
+    <section id="game" class="game">
+      <div id="progress" class="progress"></div>
+      <div id="board" class="board"></div>
+
+      <div id="introOverlay" class="overlay">
+        <p id="introText"></p>
+        <button id="beginBtn" class="gold-btn">BEGIN</button>
+      </div>
+
+      <div id="doneOverlay" class="overlay hidden">
+        <p id="doneText"></p>
+        <button id="nextBtn" class="gold-btn">NEXT PUZZLE</button>
+      </div>
+
+      <p class="tray-label">PIECES</p>
+      <div id="tray" class="tray"></div>
+    </section>
+
+    <section id="reward" class="reward hidden">
+      <p>You put every little piece back together. ❤️</p>
+      <p class="muted">There's something waiting for you.</p>
+      <div class="reward-number">1407</div>
+      <button id="questionsBtn" class="gold-btn">CONTINUE TO QUESTIONS</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
