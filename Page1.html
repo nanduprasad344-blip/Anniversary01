@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Happy 1st Anniversary, Jyothi</title>
+<style>
+/* ==========================================
+   1. RESET
+   ========================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* ==========================================
+   2. BODY / PAGE
+   ========================================== */
+
+body {
+  background: #0d0b10;
+  color: #f3e8ee;
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  overflow: hidden;
+  padding: 24px 16px;
+  position: relative;
+}
+
+
+/* ==========================================
+   3. HEADER
+   ========================================== */
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  z-index: 2;
+}
+
+.main-title {
+  font-family: Georgia, serif;
+  font-size: 2.2rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #f8e5ee;
+  text-transform: uppercase;
+}
+
+.sub-title {
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #bfa3b0;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================
+   4. GIFT BOX
+   ========================================== */
+
+.gift-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 40px;
+  cursor: pointer;
+  z-index: 10;
+
+  transition:
+    transform 0.3s ease,
+    opacity 0.5s ease;
+}
+
+.gift-container:active {
+  transform: scale(0.95);
+}
+
+.gift-box {
+  width: 90px;
+  height: 90px;
+
+  background: linear-gradient(
+    135deg,
+    #7c2d4a,
+    #4a1529
+  );
+
+  border-radius: 8px;
+  position: relative;
+
+  box-shadow:
+    0 12px 30px #0009,
+    0 0 20px #7c2d4a66;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Gift lid */
+
+.gift-lid {
+  position: absolute;
+  top: -12px;
+
+  width: 102px;
+  height: 22px;
+
+  background: linear-gradient(
+    135deg,
+    #8f3657,
+    #5c1b33
+  );
+
+  border-radius: 4px;
+  z-index: 2;
+}
+
+
+/* Gift ribbons */
+
+.ribbon-v {
+  position: absolute;
+
+  width: 16px;
+  height: 100%;
+
+  background: linear-gradient(
+    to right,
+    #d4af37,
+    #f3e5ab,
+    #d4af37
+  );
+
+  z-index: 1;
+}
+
+.ribbon-h {
+  position: absolute;
+
+  height: 16px;
+  width: 100%;
+
+  background: linear-gradient(
+    to bottom,
+    #d4af37,
+    #f3e5ab,
+    #d4af37
+  );
+
+  z-index: 1;
+}
+
+
+/* Gift bow */
+
+.bow {
+  position: absolute;
+
+  top: -24px;
+  width: 32px;
+  height: 20px;
+
+  z-index: 3;
+}
+
+.bow:before,
+.bow:after {
+  content: '';
+
+  position: absolute;
+
+  width: 16px;
+  height: 16px;
+
+  border: 3px solid #f3e5ab;
+  border-radius: 50% 50% 0 50%;
+  background: #d4af37;
+}
+
+.bow:before {
+  left: 0;
+  transform: rotate(45deg);
+}
+
+.bow:after {
+  right: 0;
+  transform: rotate(-45deg) scaleX(-1);
+}
+
+
+/* Tap to open */
+
+.tap-hint {
+  margin-top: 24px;
+
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+
+  color: #9d808f;
+  text-transform: uppercase;
+}
+
+
+/* ==========================================
+   5. OPENED GIFT WINDOW
+   ========================================== */
+
+.gift-window {
+  width: 100%;
+  max-width: 380px;
+
+  height: 60vh;
+  max-height: 480px;
+
+  background: #16111adc;
+
+  border: 1px solid #d4af373f;
+  border-radius: 16px;
+
+  box-shadow:
+    0 20px 40px #000c,
+    inset 0 0 15px #d4af370d;
+
+  overflow-y: auto;
+
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+
+  display: none;
+
+  position: relative;
+
+  padding: 0 24px;
+
+  z-index: 5;
+}
+
+
+/* Scrollbar */
+
+.gift-window::-webkit-scrollbar {
+  width: 3px;
+}
+
+.gift-window::-webkit-scrollbar-thumb {
+  background: #d4af3733;
+  border-radius: 3px;
+}
+
+
+/* ==========================================
+   6. CONTENT INSIDE WINDOW
+   ========================================== */
+
+.window-content {
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  text-align: center;
+
+  width: 100%;
+}
+
+
+/* Main text */
+
+.text-block {
+  font-family: Georgia, serif;
+
+  font-size: 1.45rem;
+  line-height: 1.7;
+
+  color: #f3e8ee;
+  font-weight: 400;
+}
+
+
+/* Smaller / subtle text */
+
+.text-subtle {
+  font-family: Arial, sans-serif;
+
+  font-size: 0.95rem;
+  line-height: 1.8;
+
+  color: #d1bcc7;
+  font-weight: 300;
+}
+
+
+/* ==========================================
+   7. PHASE 1 SPACES
+   ========================================== */
+
+/*
+   Change these individually.
+
+   phase1-space-1
+   = space after "Hey my love, Jyothi ❤️"
+
+   phase1-space-2
+   = space around the next Phase 1 message
+
+   phase1-end-space
+   = empty space after
+     "None of that is on this page."
+   = leads to the 10-second timer
+*/
+
+.phase1-space-1 {
+  height: 11vh;
+}
+
+.phase1-space-2 {
+  height: 30vh;
+}
+
+.phase1-end-space {
+  height: 12vh;
+}
+
+
+/* ==========================================
+   8. PHASE 2 SPACES
+   ========================================== */
+
+/*
+   Each one can be changed separately.
+*/
+
+.phase2-space-1 {
+  height: 10vh;
+}
+
+.phase2-space-2 {
+  height: 15vh;
+}
+
+.phase2-space-3 {
+  height: 15vh;
+}
+
+.phase2-space-4 {
+  height: 18vh;
+}
+
+
+/*
+   Empty space after the final Phase 2 sentence.
+   Reaching the end triggers the 15-second timer.
+*/
+
+.phase2-end-space {
+  height: 25vh;
+}
+
+
+/* ==========================================
+   9. PHASE 2 EMPHASIZED WORDS
+   ========================================== */
+
+.emphasis-word {
+  color: #b08296;
+
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+
+/* ==========================================
+   10. END SENTINELS
+   ========================================== */
+
+.end-sentinel {
+  height: 2px;
+  width: 100%;
+
+  opacity: 0;
+}
+
+
+/* ==========================================
+   11. COUNTDOWN TIMER
+   ========================================== */
+
+.timer-overlay {
+  position: absolute;
+
+  bottom: 12px;
+  right: 15px;
+
+  font-size: 0.75rem;
+
+  color: #b39ddb;
+  opacity: 0.5;
+
+  letter-spacing: 1px;
+
+  pointer-events: none;
+
+  display: none;
+
+  z-index: 20;
+}
+
+
+/* ==========================================
+   12. START BUTTON
+   ========================================== */
+
+.start-btn {
+  display: inline-block;
+
+  margin-top: 20px;
+  padding: 12px 36px;
+
+  background: linear-gradient(
+    135deg,
+    #d4af37,
+    #aa820a
+  );
+
+  color: #0d0b10;
+
+  font-family: Arial, sans-serif;
+
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  text-transform: uppercase;
+
+  border: 0;
+  border-radius: 30px;
+
+  cursor: pointer;
+}
+
+
+/* ==========================================
+   13. FADE ANIMATION
+   ========================================== */
+
+.fade-in {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+</style>
+</head>
+<body>
+<header class="header">
+<h1 class="main-title">HAPPY ANNIVERSARY</h1>
+<p class="sub-title">It's our 1st Anniversary</p>
+</header>
+
+<div class="gift-container" id="giftBoxContainer" onclick="openGift()">
+<div class="gift-box"><div class="gift-lid"></div><div class="ribbon-v"></div><div class="ribbon-h"></div><div class="bow"></div></div>
+<div class="tap-hint">Tap to open</div>
+</div>
+
+<div class="gift-window" id="giftWindow">
+<div class="window-content" id="windowContent"></div>
+<div class="timer-overlay" id="timerOverlay"></div>
+</div>
+
+<script>
+const giftBoxContainer=document.getElementById('giftBoxContainer');
+const giftWindow=document.getElementById('giftWindow');
+const windowContent=document.getElementById('windowContent');
+const timerOverlay=document.getElementById('timerOverlay');
+let currentPhase=0;
+let phase1TimerStarted=false;
+let phase2TimerStarted=false;
+
+function openGift(){
+giftBoxContainer.style.opacity='0';
+setTimeout(()=>{
+giftBoxContainer.style.display='none';
+giftWindow.style.display='block';
+giftWindow.classList.add('fade-in');
+loadPhase1();
+},500);
+}
+
+function loadPhase1(){
+currentPhase=1;
+windowContent.innerHTML=`
+<div class="phase1-space-1"></div>
+<p class="text-block">Hey my love, Jyothi ❤️</p>
+<div class="phase1-space-2"></div>
+<p class="text-block">What are you expecting?<br>A letter?<br>Photos?</p>
+<div class="phase1-space-2"></div>
+<p class="text-block">None of that is on this page.</p>
+<div class="phase1-end-space"></div>
+<div id="phase1Sentinel" class="medium-sentinel"></div>`;
+giftWindow.scrollTop=0;
+giftWindow.addEventListener('scroll',checkPhase1End);
+}
+
+function checkPhase1End(){
+if(phase1TimerStarted)return;
+const sentinel=document.getElementById('phase1Sentinel');
+if(!sentinel)return;
+const wb=giftWindow.getBoundingClientRect();
+const sb=sentinel.getBoundingClientRect();
+if(sb.top<=wb.bottom+10)startPhase1Timer();
+}
+
+/* TIMER SYSTEM FROM THE FIRST VERSION */
+function startPhase1Timer(){
+phase1TimerStarted=true;
+giftWindow.removeEventListener('scroll',checkPhase1End);
+let timeLeft=10;
+timerOverlay.style.display='block';
+timerOverlay.innerText=`Wait... ${timeLeft}s`;
+const interval=setInterval(()=>{
+timeLeft--;
+if(timeLeft>0){
+timerOverlay.innerText=`Wait... ${timeLeft}s`;
+}else{
+clearInterval(interval);
+timerOverlay.innerText='';
+timerOverlay.style.display='none';
+loadPhase2();
+}},1000);
+}
+
+function loadPhase2(){
+currentPhase=2;
+windowContent.innerHTML=`
+<div style="height:10vh"></div>
+<p class="text-subtle" style="font-size:2.1rem">↓<br>Scroll down</p>
+<div class="phase2-space-1"></div>
+<p class="text-block">But I prepared a few little surprises for you this time.</p>
+<div class="phase2-space-2"></div>
+<p class="text-subtle">It isn't something you just read like the ones I've made before.</p>
+<div class="phase2-space-3"></div>
+<p class="text-subtle">This time, you have to <span class="emphasis-word">play</span>, <span class="emphasis-word">remember</span>, <span class="emphasis-word">discover</span>, and <span class="emphasis-word">unlock</span>.</p>
+<div class="phase2-space-4"></div>
+<p class="text-block" style="font-size:1.25rem">Just like every little-little thing led to us, every little challenge leads to something waiting for you</p>
+<div class="phase2-end-space"></div>
+<div id="phase2Sentinel" class="medium-sentinel"></div>`;
+giftWindow.scrollTop=0;
+giftWindow.addEventListener('scroll',checkPhase2End);
+}
+
+function checkPhase2End(){
+if(phase2TimerStarted)return;
+const sentinel=document.getElementById('phase2Sentinel');
+if(!sentinel)return;
+const wb=giftWindow.getBoundingClientRect();
+const sb=sentinel.getBoundingClientRect();
+if(sb.top<=wb.bottom+10)startPhase2Timer();
+}
+
+function startPhase2Timer(){
+phase2TimerStarted=true;
+giftWindow.removeEventListener('scroll',checkPhase2End);
+let timeLeft=15;
+timerOverlay.style.display='block';
+timerOverlay.innerText=`Wait... ${timeLeft}s`;
+const interval=setInterval(()=>{
+timeLeft--;
+if(timeLeft>0){
+timerOverlay.innerText=`Wait... ${timeLeft}s`;
+}else{
+clearInterval(interval);
+timerOverlay.innerText='';
+timerOverlay.style.display='none';
+revealFinalSection();
+}},1000);
+}
+
+function revealFinalSection(){
+const finalContainer=document.createElement('div');
+finalContainer.className='fade-in';
+finalContainer.style.paddingBottom='60px';
+finalContainer.style.marginTop='-40vh';
+finalContainer.innerHTML=`
+<p class="text-block" style="font-size:1.8rem;margin-bottom:24px">Are you ready?</p>
+<button class="start-btn" onclick="handleStart()">START</button>`;
+windowContent.appendChild(finalContainer);
+giftWindow.scrollTo({top:giftWindow.scrollHeight,behavior:'smooth'});
+}
+
+function handleStart(){
+alert("Transitioning to Page 2... ❤️");
+}
+</script>
+</body>
+</html>
